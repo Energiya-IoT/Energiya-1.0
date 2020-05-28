@@ -972,6 +972,9 @@ int ReadEEPROM()
 		  //Remove resources
 		  DeleteAddOnResources();
 		  DeleteMainResources();
+		  le_appCtrl_ConnectService();
+		  le_appCtrl_Stop("Energiya");
+		  le_appCtrl_DisconnectService();
 		  break;
   }
   return 0;
