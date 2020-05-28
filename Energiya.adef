@@ -19,6 +19,7 @@ executables:
 bindings:
 {
     energiya.EnergiyaComponent.io -> dataHub.io
+    energiya.EnergiyaComponent.le_appCtrl -> <root>.le_appCtrl
     energiya.EnergiyaComponent.le_gpioPin25 -> gpioService.le_gpioPin25
     energiya.EnergiyaComponent.le_gpioPin8 -> gpioService.le_gpioPin8
     energiya.EnergiyaComponent.le_gpioPin13 -> gpioService.le_gpioPin13
