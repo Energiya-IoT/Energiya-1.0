@@ -956,30 +956,28 @@ int ReadEEPROM()
   switch(Initiated)
   {
   	  case 1:
+		le_gpioPin8_TryConnectService();
+	        le_gpioPin8_EnablePullUp();
+	        le_gpioPin8_SetPushPullOutput(LE_GPIOPIN8_ACTIVE_HIGH, false);
   		DeleteMainResources(Initiated);
   		Init(Initiated);
   		break;
 
   	  case 2:
+		le_gpioPin8_TryConnectService();
+	        le_gpioPin8_EnablePullUp();
+	        le_gpioPin8_SetPushPullOutput(LE_GPIOPIN8_ACTIVE_HIGH, false);
   		Init(Initiated);
   		break;
 
   	  default:
-		  le_gpioPin42_TryConnectService();
-		  le_gpioPin13_TryConnectService();
-		  le_gpioPin33_TryConnectService();
-		  le_gpioPin8_TryConnectService();
 		  //Remove resources
 		  DeleteAddOnResources();
 		  DeleteMainResources();
 		  le_appCtrl_ConnectService();
 		  le_appCtrl_Stop("Energiya");
 		  le_appCtrl_DisconnectService();
-		  
-		  le_gpioPin8_DisconnectService();
-		  le_gpioPin33_DisconnectService();
-		  le_gpioPin13_DisconnectService();
-		  le_gpioPin42_DisconnectService();
+		 
 		  break;
   }
   return 0;
@@ -987,9 +985,6 @@ int ReadEEPROM()
 
 COMPONENT_INIT
 {
-	le_gpioPin8_TryConnectService();
-	le_gpioPin8_EnablePullUp();
-	le_gpioPin8_SetPushPullOutput(LE_GPIOPIN8_ACTIVE_HIGH, false);
 	IsLooperRunning = false;
 	Saved1 = LE_EXTADC_NORMAL;
 	Saved2 = LE_EXTADC_NORMAL;
