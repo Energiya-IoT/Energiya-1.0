@@ -12,11 +12,11 @@ requires:
 	{
 		io = io.api
 		le_appCtrl.api
-        	le_gpioPin25 = le_gpio.api
-       	 	le_gpioPin8 = le_gpio.api
-        	le_gpioPin33 = le_gpio.api
-        	le_gpioPin13 = le_gpio.api
-        	le_gpioPin42 = le_gpio.api
+        	le_gpioPin25 = le_gpio.api [manual-start]
+       	 	le_gpioPin8 = le_gpio.api [manual-start]
+        	le_gpioPin33 = le_gpio.api [manual-start]
+        	le_gpioPin13 = le_gpio.api [manual-start]
+        	le_gpioPin42 = le_gpio.api [manual-start]
 	}
 }
 
