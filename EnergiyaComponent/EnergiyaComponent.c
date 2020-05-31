@@ -975,6 +975,11 @@ int ReadEEPROM()
 		  le_appCtrl_ConnectService();
 		  le_appCtrl_Stop("Energiya");
 		  le_appCtrl_DisconnectService();
+		  
+		  le_gpioPin8_DisconnectService();
+		  le_gpioPin33_DisconnectService();
+		  le_gpioPin13_DisconnectService();
+		  le_gpioPin42_DisconnectService();
 		  break;
   }
   return 0;
