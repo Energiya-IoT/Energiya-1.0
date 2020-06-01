@@ -48,6 +48,6 @@ processes:
 	maxFileBytes: 1024K
 }
 
-version: 1.0.0
+version: 1.0.2
 sandboxed: false
 maxFileSystemBytes: 1024K
