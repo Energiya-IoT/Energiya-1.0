@@ -50,4 +50,3 @@ processes:
 
 version: 1.0.2
 sandboxed: false
-maxFileSystemBytes: 1024K
