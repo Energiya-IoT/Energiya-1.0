@@ -214,8 +214,8 @@ static void HandleSettingsAddOnPush(double timestamp, double AddOnType, void* co
 			break;
 		case 3:
 			LE_INFO("Outputs/Inputs ON.");
-			Init1_O();
-			Init2_I();
+			Init1_I();
+			Init2_O();
 			break;
 		case 4:
 			LE_INFO("8 Inputs ON.");
