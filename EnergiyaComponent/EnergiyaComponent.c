@@ -1028,7 +1028,8 @@ COMPONENT_INIT
 	le_ExtAdc_SetDeviceAddress(LE_EXTADC_PIN01);
 
     //CARD_DETECT EEPROM MangOH red GPIO33
-	le_gpioPin25_TryConnectService();
+	//le_gpioPin25_TryConnectService();
+	le_gpioPin25_ConnectService();
 	le_gpioPin25_EnablePullUp();
 	le_gpioPin25_SetPushPullOutput(LE_GPIOPIN25_ACTIVE_HIGH, true);
 
@@ -1041,7 +1042,7 @@ COMPONENT_INIT
 
 	le_gpioPin25_Deactivate();
 	le_gpioPin25_DisconnectService();
-	sleep(10);
+
 	//Write(0x3E,0x10, 0b00000000);
 }
 
