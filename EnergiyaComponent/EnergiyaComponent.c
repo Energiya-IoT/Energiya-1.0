@@ -1041,7 +1041,7 @@ COMPONENT_INIT
 
 	le_gpioPin25_Deactivate();
 	le_gpioPin25_DisconnectService();
-
+	sleep(10);
 	//Write(0x3E,0x10, 0b00000000);
 }
 
