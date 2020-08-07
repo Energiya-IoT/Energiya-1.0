@@ -48,5 +48,5 @@ processes:
 	maxFileBytes: 1024K
 }
 
-version: 1.0.3
+version: 1.0.4
 sandboxed: false
