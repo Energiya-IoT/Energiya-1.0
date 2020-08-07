@@ -985,6 +985,7 @@ int ReadEEPROM()
 
 COMPONENT_INIT
 {
+	sleep(10);
 	IsLooperRunning = false;
 	Saved1 = LE_EXTADC_NORMAL;
 	Saved2 = LE_EXTADC_NORMAL;
@@ -1044,5 +1045,6 @@ COMPONENT_INIT
 	le_gpioPin25_DisconnectService();
 
 	//Write(0x3E,0x10, 0b00000000);
+	sleep(10);
 }
 
