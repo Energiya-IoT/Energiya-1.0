@@ -46,6 +46,7 @@ processes:
 
 	maxCoreDumpFileBytes: 1024K
 	maxFileBytes: 1024K
+	faultAction: restart
 }
 
 version: 1.0.4
