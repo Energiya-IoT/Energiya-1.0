@@ -984,8 +984,7 @@ int ReadEEPROM()
 }
 
 COMPONENT_INIT
-{
-	sleep(10);
+{	le_result_t status;
 	IsLooperRunning = false;
 	Saved1 = LE_EXTADC_NORMAL;
 	Saved2 = LE_EXTADC_NORMAL;
@@ -1028,23 +1027,32 @@ COMPONENT_INIT
 	//both ways cannot be down, because address 68h is reserved on mangOH red
 	le_ExtAdc_SetDeviceAddress(LE_EXTADC_PIN01);
 
-    //CARD_DETECT EEPROM MangOH red GPIO33
-	//le_gpioPin25_TryConnectService();
-	le_gpioPin25_ConnectService();
-	le_gpioPin25_EnablePullUp();
-	le_gpioPin25_SetPushPullOutput(LE_GPIOPIN25_ACTIVE_HIGH, true);
+    //Wait gpioService service is ready
+    //set timeout to 10s
+    int timeout = 100;
+    while (((status = le_gpioPin25_TryConnectService()) != LE_OK) &&
+           (timeout != 0))
+    {
+        //wait 100ms
+        usleep(100000);
+        timeout--;
+    }
 
-	//CARD_DETECT EEPROM MangOH mangOH yellow
-	//Write(0x3E, 0x0E, 0);
-	//Write(0x3E, 0x10, 0b00000001);
+    if (status == LE_OK)
+    {
+        le_gpioPin25_EnablePullUp();
+        le_gpioPin25_SetPushPullOutput(LE_GPIOPIN25_ACTIVE_HIGH, true);
 
-	//Read EEPROM and create/remove resources
-	ReadEEPROM();
+        //Read EEPROM and create/remove resources
+        ReadEEPROM();
 
-	le_gpioPin25_Deactivate();
-	le_gpioPin25_DisconnectService();
+        le_gpioPin25_Deactivate();
+        le_gpioPin25_DisconnectService();
+    }
+    else
+    {
+        LE_FATAL("Failed to connect to service of le_gpioPin25 (%d)",status);
+    }
 
 	//Write(0x3E,0x10, 0b00000000);
-	sleep(10);
 }
-
