@@ -917,6 +917,8 @@ int ReadEEPROM()
   uint16_t OffSetProduct = 36;
   uint8_t Initiated = 0;
 
+  LE_DEBUG("ReadEEPROM");
+
   if (FD >= 0)
   {
 	  if (ioctl(FD, I2C_SLAVE_FORCE, 0x52) >= 0)
@@ -953,6 +955,9 @@ int ReadEEPROM()
 	  }
 	  close(FD);
   }
+
+  LE_DEBUG("ReadEEPROM Initiated=%d", Initiated);
+
   switch(Initiated)
   {
   	  case 1:
@@ -971,16 +976,13 @@ int ReadEEPROM()
   		break;
 
   	  default:
-		  //Remove resources
-		  DeleteAddOnResources();
-		  DeleteMainResources();
-		  le_appCtrl_ConnectService();
-		  le_appCtrl_Stop("Energiya");
-		  le_appCtrl_DisconnectService();
-		 
-		  break;
+		// No card detected.
+		// No resource deleted since none created yet.
+		// App termination is handled at a higher level.
+		break;
   }
-  return 0;
+
+  return Initiated;
 }
 
 COMPONENT_INIT
@@ -1038,20 +1040,25 @@ COMPONENT_INIT
         timeout--;
     }
 
+	int initStatus = 0;
     if (status == LE_OK)
     {
         le_gpioPin25_EnablePullUp();
         le_gpioPin25_SetPushPullOutput(LE_GPIOPIN25_ACTIVE_HIGH, true);
 
-        //Read EEPROM and create/remove resources
-        ReadEEPROM();
+        //Read EEPROM and create resources
+        initStatus = ReadEEPROM();
 
         le_gpioPin25_Deactivate();
         le_gpioPin25_DisconnectService();
     }
-    else
+
+	if(!initStatus)
     {
-        LE_FATAL("Failed to connect to service of le_gpioPin25 (%d)",status);
+		// End of app
+		le_appCtrl_ConnectService();
+		le_appCtrl_Stop("Energiya");
+		le_appCtrl_DisconnectService();
     }
 
 	//Write(0x3E,0x10, 0b00000000);
